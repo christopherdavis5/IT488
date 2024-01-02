@@ -1,7 +1,0 @@
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\bookstoreapp.Form1.resources
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.csproj.GenerateResource.cache
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.GeneratedMSBuildEditorConfig.editorconfig
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.AssemblyInfoInputs.cache
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.AssemblyInfo.cs
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.csproj.CoreCompileInputs.cache
-E:\IT488\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.sourcelink.json

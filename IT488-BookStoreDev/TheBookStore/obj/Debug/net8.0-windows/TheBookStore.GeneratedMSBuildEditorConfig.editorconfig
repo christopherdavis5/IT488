@@ -14,6 +14,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TheBookStore
-build_property.ProjectDir = C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\
+build_property.ProjectDir = E:\IT488\IT488-BookStoreDev\TheBookStore\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

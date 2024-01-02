@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alx13\\Desktop\\IT488-BookStoreDev\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj": {}
+    "E:\\IT488\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alx13\\Desktop\\IT488-BookStoreDev\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj": {
+    "E:\\IT488\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alx13\\Desktop\\IT488-BookStoreDev\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj",
+        "projectUniqueName": "E:\\IT488\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj",
         "projectName": "TheBookStore",
-        "projectPath": "C:\\Users\\alx13\\Desktop\\IT488-BookStoreDev\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj",
-        "packagesPath": "C:\\Users\\alx13\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alx13\\Desktop\\IT488-BookStoreDev\\IT488-BookStoreDev\\TheBookStore\\obj\\",
+        "projectPath": "E:\\IT488\\IT488-BookStoreDev\\TheBookStore\\TheBookStore.csproj",
+        "packagesPath": "C:\\Users\\cjd12\\.nuget\\packages\\",
+        "outputPath": "E:\\IT488\\IT488-BookStoreDev\\TheBookStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alx13\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cjd12\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
