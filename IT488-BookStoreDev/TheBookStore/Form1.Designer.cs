@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
             btnAccountPage = new Button();
             btnCartPage = new Button();
             pnlNavBar = new Panel();
@@ -71,46 +67,6 @@
             pnlBookCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBookCardCover).BeginInit();
             SuspendLayout();
-            // 
-            // button2
-            // 
-            button2.Location = new Point(2196, 984);
-            button2.Margin = new Padding(2);
-            button2.Name = "button2";
-            button2.Size = new Size(92, 43);
-            button2.TabIndex = 2;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(2202, 990);
-            button3.Margin = new Padding(2);
-            button3.Name = "button3";
-            button3.Size = new Size(92, 43);
-            button3.TabIndex = 3;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(2208, 996);
-            button4.Margin = new Padding(2);
-            button4.Name = "button4";
-            button4.Size = new Size(92, 43);
-            button4.TabIndex = 4;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Location = new Point(2214, 1002);
-            button5.Margin = new Padding(2);
-            button5.Name = "button5";
-            button5.Size = new Size(92, 43);
-            button5.TabIndex = 5;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
             // 
             // btnAccountPage
             // 
@@ -309,7 +265,7 @@
             pnlBookStock.Location = new Point(262, 213);
             pnlBookStock.Margin = new Padding(2);
             pnlBookStock.Name = "pnlBookStock";
-            pnlBookStock.Size = new Size(1011, 484);
+            pnlBookStock.Size = new Size(1011, 659);
             pnlBookStock.TabIndex = 12;
             // 
             // pnlBookCard
@@ -485,7 +441,7 @@
             lblAppName.Name = "lblAppName";
             lblAppName.Size = new Size(493, 72);
             lblAppName.TabIndex = 14;
-            lblAppName.Text = "The Bookstore Application";
+            lblAppName.Text = "Authors4Fans";
             lblAppName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtDebugText
@@ -502,17 +458,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1284, 701);
+            ClientSize = new Size(1308, 876);
             Controls.Add(lblAppName);
             Controls.Add(txtDebugText);
             Controls.Add(pnlBookStock);
             Controls.Add(panel3);
             Controls.Add(pnlBookSearch);
             Controls.Add(pnlNavBar);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
             ForeColor = SystemColors.MenuHighlight;
             Margin = new Padding(2);
             Name = "Form1";
@@ -532,10 +484,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnAccountPage;
         private System.Windows.Forms.Button btnCartPage;
         private System.Windows.Forms.Panel pnlNavBar;

@@ -36,7 +36,7 @@ namespace bookstoreapp
             {
                 var datasource = @"(local)\SQLExpress";
                 var database = "Bookstoredb";
-                string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
+                string connString = "Data Source=BATTLESTATION;Initial Catalog=Bookstoredb;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True";
                 SqlConnection conn = new SqlConnection(connString);
                 conn.Open();
                 txtDebugText.Text = "Connection Successful";
@@ -107,9 +107,9 @@ namespace bookstoreapp
             var books = new List<Book>();
             var datasource = @"(local)\SQLExpress";
             var database = "Bookstoredb";
-            string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
+            string connString = "Data Source=BATTLESTATION;Initial Catalog=Bookstoredb;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True";
 
-            string sqlQuery = "SELECT [Book Title], [Book Author], [Description], [Price] FROM [Book Information] WHERE 1=1";
+            string sqlQuery = "SELECT [Book Title], [Book Author], [Description], [price] FROM [Book Information] WHERE 1=1";
             decimal priceValue = 0;
 
             if (!string.IsNullOrWhiteSpace(author))
@@ -122,7 +122,7 @@ namespace bookstoreapp
             }
             if (!string.IsNullOrWhiteSpace(maxPrice) && decimal.TryParse(maxPrice, out priceValue))
             {
-                sqlQuery += " AND [Price] <= @MaxPrice";
+                sqlQuery += " AND [price] <= @MaxPrice";
             }
 
             using (SqlConnection conn = new SqlConnection(connString))
@@ -151,7 +151,7 @@ namespace bookstoreapp
                         {
                             Title = reader["Book Title"].ToString(),
                             Author = reader["Book Author"].ToString(),
-                            Price = reader["Price"].ToString(),
+                            Price = reader["price"].ToString(),
                             Description = reader["Description"].ToString()
                         };
                         books.Add(book);
