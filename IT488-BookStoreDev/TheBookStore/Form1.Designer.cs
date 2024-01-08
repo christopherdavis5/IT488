@@ -65,11 +65,29 @@
             picBookCardCover = new PictureBox();
             lblAppName = new Label();
             txtDebugText = new TextBox();
+            pnlAccountPage = new Panel();
+            btnLogOutAccount = new Button();
+            btnChangePasswordAccount = new Button();
+            btnEditInfoAccount = new Button();
+            lbl2EmailAccount = new Label();
+            lbl2PhoneAccount = new Label();
+            lbl2AddressAccount = new Label();
+            lbl2UsernameAccount = new Label();
+            lbl2LastNameAccount = new Label();
+            lbl2FirstNameAccount = new Label();
+            lblUsernameAccount = new Label();
+            lblAddressAccount = new Label();
+            lblPhoneAccount = new Label();
+            lblEmailAccount = new Label();
+            lblLastNameAccount = new Label();
+            lblFirstNameAccount = new Label();
+            label1 = new Label();
             pnlNavBar.SuspendLayout();
             pnlBookSearch.SuspendLayout();
             pnlBookStock.SuspendLayout();
             pnlBookCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBookCardCover).BeginInit();
+            pnlAccountPage.SuspendLayout();
             SuspendLayout();
             // 
             // button2
@@ -124,6 +142,7 @@
             btnAccountPage.TabIndex = 6;
             btnAccountPage.Text = "Account";
             btnAccountPage.UseVisualStyleBackColor = false;
+            btnAccountPage.Click += btnAccountPage_Click;
             // 
             // btnCartPage
             // 
@@ -163,6 +182,7 @@
             btnHomePage.TabIndex = 7;
             btnHomePage.Text = "Home";
             btnHomePage.UseVisualStyleBackColor = false;
+            btnHomePage.Click += btnHomePage_Click;
             // 
             // btnLoginPage
             // 
@@ -177,6 +197,7 @@
             btnLoginPage.TabIndex = 1;
             btnLoginPage.Text = "Log In";
             btnLoginPage.UseVisualStyleBackColor = false;
+            btnLoginPage.Click += btnLoginPage_Click;
             // 
             // pnlBookSearch
             // 
@@ -329,10 +350,10 @@
             pnlBookCard.Controls.Add(lblBookCardAuthor);
             pnlBookCard.Controls.Add(lblBookCardTitle);
             pnlBookCard.Controls.Add(picBookCardCover);
-            pnlBookCard.Location = new Point(12, 2);
+            pnlBookCard.Location = new Point(2, 2);
             pnlBookCard.Margin = new Padding(2);
             pnlBookCard.Name = "pnlBookCard";
-            pnlBookCard.Size = new Size(981, 225);
+            pnlBookCard.Size = new Size(1003, 225);
             pnlBookCard.TabIndex = 0;
             pnlBookCard.Visible = false;
             // 
@@ -497,12 +518,201 @@
             txtDebugText.Size = new Size(208, 92);
             txtDebugText.TabIndex = 13;
             // 
+            // pnlAccountPage
+            // 
+            pnlAccountPage.Controls.Add(btnLogOutAccount);
+            pnlAccountPage.Controls.Add(btnChangePasswordAccount);
+            pnlAccountPage.Controls.Add(btnEditInfoAccount);
+            pnlAccountPage.Controls.Add(lbl2EmailAccount);
+            pnlAccountPage.Controls.Add(lbl2PhoneAccount);
+            pnlAccountPage.Controls.Add(lbl2AddressAccount);
+            pnlAccountPage.Controls.Add(lbl2UsernameAccount);
+            pnlAccountPage.Controls.Add(lbl2LastNameAccount);
+            pnlAccountPage.Controls.Add(lbl2FirstNameAccount);
+            pnlAccountPage.Controls.Add(lblUsernameAccount);
+            pnlAccountPage.Controls.Add(lblAddressAccount);
+            pnlAccountPage.Controls.Add(lblPhoneAccount);
+            pnlAccountPage.Controls.Add(lblEmailAccount);
+            pnlAccountPage.Controls.Add(lblLastNameAccount);
+            pnlAccountPage.Controls.Add(lblFirstNameAccount);
+            pnlAccountPage.Controls.Add(label1);
+            pnlAccountPage.Location = new Point(47, 213);
+            pnlAccountPage.Name = "pnlAccountPage";
+            pnlAccountPage.Size = new Size(1222, 484);
+            pnlAccountPage.TabIndex = 15;
+            pnlAccountPage.Visible = false;
+            // 
+            // btnLogOutAccount
+            // 
+            btnLogOutAccount.Location = new Point(581, 317);
+            btnLogOutAccount.Name = "btnLogOutAccount";
+            btnLogOutAccount.Size = new Size(75, 23);
+            btnLogOutAccount.TabIndex = 15;
+            btnLogOutAccount.Text = "Log Out";
+            btnLogOutAccount.UseVisualStyleBackColor = true;
+            btnLogOutAccount.Click += btnLogOutAccount_Click;
+            // 
+            // btnChangePasswordAccount
+            // 
+            btnChangePasswordAccount.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnChangePasswordAccount.Location = new Point(736, 317);
+            btnChangePasswordAccount.Name = "btnChangePasswordAccount";
+            btnChangePasswordAccount.Size = new Size(121, 23);
+            btnChangePasswordAccount.TabIndex = 14;
+            btnChangePasswordAccount.Text = "Change Password";
+            btnChangePasswordAccount.UseVisualStyleBackColor = true;
+            btnChangePasswordAccount.Click += btnChangePasswordAccount_Click;
+            // 
+            // btnEditInfoAccount
+            // 
+            btnEditInfoAccount.Location = new Point(420, 317);
+            btnEditInfoAccount.Name = "btnEditInfoAccount";
+            btnEditInfoAccount.Size = new Size(75, 23);
+            btnEditInfoAccount.TabIndex = 13;
+            btnEditInfoAccount.Text = "Edit Info";
+            btnEditInfoAccount.UseVisualStyleBackColor = true;
+            // 
+            // lbl2EmailAccount
+            // 
+            lbl2EmailAccount.AutoSize = true;
+            lbl2EmailAccount.ForeColor = Color.Black;
+            lbl2EmailAccount.Location = new Point(757, 275);
+            lbl2EmailAccount.Name = "lbl2EmailAccount";
+            lbl2EmailAccount.Size = new Size(36, 15);
+            lbl2EmailAccount.TabIndex = 12;
+            lbl2EmailAccount.Text = "Email";
+            // 
+            // lbl2PhoneAccount
+            // 
+            lbl2PhoneAccount.AutoSize = true;
+            lbl2PhoneAccount.ForeColor = Color.Black;
+            lbl2PhoneAccount.Location = new Point(754, 209);
+            lbl2PhoneAccount.Name = "lbl2PhoneAccount";
+            lbl2PhoneAccount.RightToLeft = RightToLeft.No;
+            lbl2PhoneAccount.Size = new Size(83, 15);
+            lbl2PhoneAccount.TabIndex = 11;
+            lbl2PhoneAccount.Text = "Phonenumber";
+            // 
+            // lbl2AddressAccount
+            // 
+            lbl2AddressAccount.ForeColor = Color.Black;
+            lbl2AddressAccount.Location = new Point(757, 136);
+            lbl2AddressAccount.Name = "lbl2AddressAccount";
+            lbl2AddressAccount.RightToLeft = RightToLeft.No;
+            lbl2AddressAccount.Size = new Size(119, 50);
+            lbl2AddressAccount.TabIndex = 10;
+            lbl2AddressAccount.Text = "Address";
+            // 
+            // lbl2UsernameAccount
+            // 
+            lbl2UsernameAccount.AutoSize = true;
+            lbl2UsernameAccount.ForeColor = Color.Black;
+            lbl2UsernameAccount.Location = new Point(435, 274);
+            lbl2UsernameAccount.Name = "lbl2UsernameAccount";
+            lbl2UsernameAccount.Size = new Size(60, 15);
+            lbl2UsernameAccount.TabIndex = 9;
+            lbl2UsernameAccount.Text = "Username";
+            // 
+            // lbl2LastNameAccount
+            // 
+            lbl2LastNameAccount.AutoSize = true;
+            lbl2LastNameAccount.ForeColor = Color.Black;
+            lbl2LastNameAccount.Location = new Point(435, 207);
+            lbl2LastNameAccount.Name = "lbl2LastNameAccount";
+            lbl2LastNameAccount.Size = new Size(58, 15);
+            lbl2LastNameAccount.TabIndex = 8;
+            lbl2LastNameAccount.Text = "Lastname";
+            // 
+            // lbl2FirstNameAccount
+            // 
+            lbl2FirstNameAccount.AutoSize = true;
+            lbl2FirstNameAccount.ForeColor = Color.Black;
+            lbl2FirstNameAccount.Location = new Point(436, 137);
+            lbl2FirstNameAccount.Name = "lbl2FirstNameAccount";
+            lbl2FirstNameAccount.Size = new Size(59, 15);
+            lbl2FirstNameAccount.TabIndex = 7;
+            lbl2FirstNameAccount.Text = "Firstname";
+            // 
+            // lblUsernameAccount
+            // 
+            lblUsernameAccount.AutoSize = true;
+            lblUsernameAccount.Location = new Point(406, 252);
+            lblUsernameAccount.Name = "lblUsernameAccount";
+            lblUsernameAccount.RightToLeft = RightToLeft.No;
+            lblUsernameAccount.Size = new Size(63, 15);
+            lblUsernameAccount.TabIndex = 6;
+            lblUsernameAccount.Text = "Username:";
+            // 
+            // lblAddressAccount
+            // 
+            lblAddressAccount.AutoSize = true;
+            lblAddressAccount.Location = new Point(736, 114);
+            lblAddressAccount.Name = "lblAddressAccount";
+            lblAddressAccount.RightToLeft = RightToLeft.No;
+            lblAddressAccount.Size = new Size(52, 15);
+            lblAddressAccount.TabIndex = 5;
+            lblAddressAccount.Text = "Address:";
+            // 
+            // lblPhoneAccount
+            // 
+            lblPhoneAccount.AutoSize = true;
+            lblPhoneAccount.Location = new Point(736, 186);
+            lblPhoneAccount.Name = "lblPhoneAccount";
+            lblPhoneAccount.RightToLeft = RightToLeft.No;
+            lblPhoneAccount.Size = new Size(91, 15);
+            lblPhoneAccount.TabIndex = 4;
+            lblPhoneAccount.Text = "Phone Number:";
+            // 
+            // lblEmailAccount
+            // 
+            lblEmailAccount.AutoSize = true;
+            lblEmailAccount.Location = new Point(736, 252);
+            lblEmailAccount.Name = "lblEmailAccount";
+            lblEmailAccount.RightToLeft = RightToLeft.No;
+            lblEmailAccount.Size = new Size(39, 15);
+            lblEmailAccount.TabIndex = 3;
+            lblEmailAccount.Text = "Email:";
+            // 
+            // lblLastNameAccount
+            // 
+            lblLastNameAccount.AutoSize = true;
+            lblLastNameAccount.Location = new Point(406, 184);
+            lblLastNameAccount.Name = "lblLastNameAccount";
+            lblLastNameAccount.RightToLeft = RightToLeft.No;
+            lblLastNameAccount.Size = new Size(66, 15);
+            lblLastNameAccount.TabIndex = 2;
+            lblLastNameAccount.Text = "Last Name:";
+            // 
+            // lblFirstNameAccount
+            // 
+            lblFirstNameAccount.AutoSize = true;
+            lblFirstNameAccount.Location = new Point(405, 114);
+            lblFirstNameAccount.Name = "lblFirstNameAccount";
+            lblFirstNameAccount.RightToLeft = RightToLeft.No;
+            lblFirstNameAccount.Size = new Size(67, 15);
+            lblFirstNameAccount.TabIndex = 1;
+            lblFirstNameAccount.Text = "First Name:";
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.BackColor = Color.Chocolate;
+            label1.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(3, 7);
+            label1.Name = "label1";
+            label1.Size = new Size(1215, 48);
+            label1.TabIndex = 0;
+            label1.Text = "Account";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             ClientSize = new Size(1284, 701);
+            Controls.Add(pnlAccountPage);
             Controls.Add(lblAppName);
             Controls.Add(txtDebugText);
             Controls.Add(pnlBookStock);
@@ -527,6 +737,8 @@
             pnlBookCard.ResumeLayout(false);
             pnlBookCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picBookCardCover).EndInit();
+            pnlAccountPage.ResumeLayout(false);
+            pnlAccountPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -571,6 +783,23 @@
         private Button btnBookCardDetailedViewButton;
         private Button btnBookCardAddtoCartButton;
         private TextBox txtDebugText;
+        private Panel pnlAccountPage;
+        private Label label1;
+        private Label lblFirstNameAccount;
+        private Label lblUsernameAccount;
+        private Label lblAddressAccount;
+        private Label lblPhoneAccount;
+        private Label lblEmailAccount;
+        private Label lblLastNameAccount;
+        private Label lbl2LastNameAccount;
+        private Label lbl2FirstNameAccount;
+        private Button btnChangePasswordAccount;
+        private Button btnEditInfoAccount;
+        private Label lbl2EmailAccount;
+        private Label lbl2PhoneAccount;
+        private Label lbl2AddressAccount;
+        private Label lbl2UsernameAccount;
+        private Button btnLogOutAccount;
     }
 }
 
