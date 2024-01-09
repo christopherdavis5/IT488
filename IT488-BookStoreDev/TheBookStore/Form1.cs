@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.Data.SqlClient;
-using System.Reflection.Emit;
+﻿using System.Data.SqlClient;
+using TheBookStore;
 
 namespace bookstoreapp
 {
     public partial class Form1 : Form
     {
+        private bool isLoggedIn = false; //Login State Tracker
+        private string loggedInUsername;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +23,7 @@ namespace bookstoreapp
             pnlBookStock.Visible = true;
 
             System.Diagnostics.Debug.WriteLine("Form1_Load() called...");
-            txtDebugText.Text = "Startup...";
+            System.Diagnostics.Debug.WriteLine("Startup...");
 
             try
             {
@@ -39,12 +32,12 @@ namespace bookstoreapp
                 string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
                 SqlConnection conn = new SqlConnection(connString);
                 conn.Open();
-                txtDebugText.Text = "Connection Successful";
+                System.Diagnostics.Debug.WriteLine("Connection Successful");
                 conn.Close();
             }
             catch (Exception ex)
             {
-                txtDebugText.Text = "Error, " + ex;
+                System.Diagnostics.Debug.WriteLine("Error, " + ex);
             }
         }
 
@@ -194,6 +187,177 @@ namespace bookstoreapp
             txtBookSearchAuthor.Text = "";
             txtBookSearchTitle.Text = "";
             txtBookSearchMaxPrice.Text = "";
+        }
+
+        private void btnAccountPage_Click(object sender, EventArgs e)
+        {
+            ShowLoginForm();
+
+            pnlBookStock.Visible = false;
+            pnlBookSearch.Visible = false;
+            pnlAccountPage.Visible = true;
+        }
+
+        private void btnHomePage_Click(object sender, EventArgs e)
+        {
+            pnlBookStock.Visible = true;
+            pnlBookSearch.Visible = true;
+            pnlAccountPage.Visible = false;
+        }
+
+        private void btnLoginPage_Click(object sender, EventArgs e)
+        {
+            ShowLoginForm();
+        }
+
+        private void ShowLoginForm()
+        {
+            if (isLoggedIn)
+            {
+                return;
+            }
+
+            using (LoginForm loginForm = new LoginForm())
+            {
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Successful Login");
+                    
+                    //Sets the logged in username
+                    loggedInUsername = loginForm.LoggedInUsername;
+
+                    btnLoginPage.Enabled = false;
+
+                    //Login State Tracker Updated
+                    isLoggedIn = true;
+
+                    //Fetching User Details
+                    User user = GetUserDetails(loginForm.LoggedInUsername);
+
+                    //Label Update
+                    if (user != null)
+                    {
+                        lbl2FirstNameAccount.Text = user.FirstName;
+                        lbl2LastNameAccount.Text = user.LastName;
+                        lbl2AddressAccount.Text = user.Address;
+                        lbl2PhoneAccount.Text = user.PhoneNumber;
+                        lbl2EmailAccount.Text = user.Email;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Login failed or canceled.");
+                }
+            }
+        }
+
+        private User GetUserDetails(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return null;
+            }
+            
+            var datasource = @"(local)\SQLExpress";
+            var database = "Bookstoredb";
+            string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                string sqlQuery = "SELECT FirstName, LastName, Address, PhoneNumber, Email FROM [Users] WHERE [FirstName] = @Username";
+                SqlCommand command = new SqlCommand(sqlQuery, conn);
+
+                command.Parameters.AddWithValue("@Username", username);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new User
+                        {
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
+                            Email = reader["Email"].ToString()
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+
+        public class User
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Address { get; set; }
+            public string PhoneNumber { get; set; }
+            public string Email { get; set; }
+        }
+
+        private void btnLogOutAccount_Click(object sender, EventArgs e)
+        {
+            //Reset Login Tracker State
+            isLoggedIn = false;
+
+            lbl2FirstNameAccount.Text = "";
+            lbl2LastNameAccount.Text = "";
+            lbl2AddressAccount.Text = "";
+            lbl2PhoneAccount.Text = "";
+            lbl2EmailAccount.Text = "";
+
+            btnLoginPage.Enabled = true;
+
+            pnlBookStock.Visible = true;
+            pnlBookSearch.Visible = true;
+            pnlAccountPage.Visible = false;
+
+            MessageBox.Show("You have logged out.");
+        }
+
+        private void btnChangePasswordAccount_Click(object sender, EventArgs e)
+        {
+            using (ChangePasswordForm changePasswordForm = new ChangePasswordForm())
+            {
+                if (changePasswordForm.ShowDialog() == DialogResult.OK)
+                {
+                    //Calls password update method
+                    string newPassword = changePasswordForm.NewPassword;
+                    UpdateUserPassword(loggedInUsername, newPassword);
+                }
+            }
+        }
+        
+        //Update Password Method
+        private void UpdateUserPassword(string username, string newPassword)
+        {
+            string hashedPassword = PasswordUtility.HashPassword(newPassword);
+
+            var datasource = @"(local)\SQLExpress";
+            var database = "Bookstoredb";
+            string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                string sqlQuery = "UPDATE [Users] SET [Password] = @NewPassword WHERE [FirstName] = @Username";
+                SqlCommand command = new SqlCommand(sqlQuery, conn);
+
+                command.Parameters.AddWithValue("@NewPassword", hashedPassword);
+                command.Parameters.AddWithValue("@Username", username);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Password updated successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Password update failed.");
+                }
+            }
         }
     }
 }
