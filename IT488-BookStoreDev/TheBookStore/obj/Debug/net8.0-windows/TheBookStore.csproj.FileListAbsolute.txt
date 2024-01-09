@@ -16,7 +16,6 @@ C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.AssemblyInfoInputs.cache
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.AssemblyInfo.cs
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.csproj.CoreCompileInputs.cache
-C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.sourcelink.json
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.csproj.CopyComplete
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.dll
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\refint\TheBookStore.dll
@@ -25,3 +24,4 @@ C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\ref\TheBookStore.dll
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.LoginForm.resources
 C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.ChangePasswordForm.resources
+C:\Users\alx13\Desktop\IT488-BookStoreDev\IT488-BookStoreDev\IT488-BookStoreDev\TheBookStore\obj\Debug\net8.0-windows\TheBookStore.CreateAccountForm.resources

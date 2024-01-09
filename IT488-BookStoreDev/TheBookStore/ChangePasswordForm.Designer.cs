@@ -88,6 +88,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "ChangePasswordForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ChangePasswordForm";
             ResumeLayout(false);
             PerformLayout();

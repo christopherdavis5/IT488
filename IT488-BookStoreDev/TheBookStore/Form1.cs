@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Data.SqlClient;
-using System.Reflection.Emit;
+﻿using System.Data.SqlClient;
 using TheBookStore;
 
 namespace bookstoreapp
@@ -35,7 +23,7 @@ namespace bookstoreapp
             pnlBookStock.Visible = true;
 
             System.Diagnostics.Debug.WriteLine("Form1_Load() called...");
-            txtDebugText.Text = "Startup...";
+            System.Diagnostics.Debug.WriteLine("Startup...");
 
             try
             {
@@ -44,12 +32,12 @@ namespace bookstoreapp
                 string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
                 SqlConnection conn = new SqlConnection(connString);
                 conn.Open();
-                txtDebugText.Text = "Connection Successful";
+                System.Diagnostics.Debug.WriteLine("Connection Successful");
                 conn.Close();
             }
             catch (Exception ex)
             {
-                txtDebugText.Text = "Error, " + ex;
+                System.Diagnostics.Debug.WriteLine("Error, " + ex);
             }
         }
 
@@ -234,7 +222,7 @@ namespace bookstoreapp
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("Successful Login");
-
+                    
                     //Sets the logged in username
                     loggedInUsername = loginForm.LoggedInUsername;
 
@@ -265,6 +253,11 @@ namespace bookstoreapp
 
         private User GetUserDetails(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                return null;
+            }
+            
             var datasource = @"(local)\SQLExpress";
             var database = "Bookstoredb";
             string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
@@ -336,36 +329,11 @@ namespace bookstoreapp
                 }
             }
         }
-
-        //HashPassword Variable
-        private string HashPassword(string password)
-        {
-            //Changes can be made but just basic security
-            int saltSize = 16; //Size of the salt
-            int keySize = 20; //Size of the hash
-            int iterations = 10000; //How many times the algo is executed
-
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                byte[] salt = new byte[saltSize];
-                rng.GetBytes(salt);
-
-                using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations))
-                {
-                    byte[] key = pbkdf2.GetBytes(keySize);
-                    byte[] hash = new byte[saltSize + keySize];
-                    Array.Copy(salt, 0, hash, 0, saltSize);
-                    Array.Copy(key, 0, hash, saltSize, keySize);
-
-                    return Convert.ToBase64String(hash);
-                }
-            }
-        }
         
         //Update Password Method
         private void UpdateUserPassword(string username, string newPassword)
         {
-            string hashedPassword = HashPassword(newPassword);
+            string hashedPassword = PasswordUtility.HashPassword(newPassword);
 
             var datasource = @"(local)\SQLExpress";
             var database = "Bookstoredb";

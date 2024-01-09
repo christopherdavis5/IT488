@@ -64,7 +64,6 @@
             lblBookCardTitle = new Label();
             picBookCardCover = new PictureBox();
             lblAppName = new Label();
-            txtDebugText = new TextBox();
             pnlAccountPage = new Panel();
             btnLogOutAccount = new Button();
             btnChangePasswordAccount = new Button();
@@ -72,10 +71,8 @@
             lbl2EmailAccount = new Label();
             lbl2PhoneAccount = new Label();
             lbl2AddressAccount = new Label();
-            lbl2UsernameAccount = new Label();
             lbl2LastNameAccount = new Label();
             lbl2FirstNameAccount = new Label();
-            lblUsernameAccount = new Label();
             lblAddressAccount = new Label();
             lblPhoneAccount = new Label();
             lblEmailAccount = new Label();
@@ -509,15 +506,6 @@
             lblAppName.Text = "The Bookstore Application";
             lblAppName.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtDebugText
-            // 
-            txtDebugText.Location = new Point(50, 501);
-            txtDebugText.Margin = new Padding(2);
-            txtDebugText.Multiline = true;
-            txtDebugText.Name = "txtDebugText";
-            txtDebugText.Size = new Size(208, 92);
-            txtDebugText.TabIndex = 13;
-            // 
             // pnlAccountPage
             // 
             pnlAccountPage.Controls.Add(btnLogOutAccount);
@@ -526,17 +514,15 @@
             pnlAccountPage.Controls.Add(lbl2EmailAccount);
             pnlAccountPage.Controls.Add(lbl2PhoneAccount);
             pnlAccountPage.Controls.Add(lbl2AddressAccount);
-            pnlAccountPage.Controls.Add(lbl2UsernameAccount);
             pnlAccountPage.Controls.Add(lbl2LastNameAccount);
             pnlAccountPage.Controls.Add(lbl2FirstNameAccount);
-            pnlAccountPage.Controls.Add(lblUsernameAccount);
             pnlAccountPage.Controls.Add(lblAddressAccount);
             pnlAccountPage.Controls.Add(lblPhoneAccount);
             pnlAccountPage.Controls.Add(lblEmailAccount);
             pnlAccountPage.Controls.Add(lblLastNameAccount);
             pnlAccountPage.Controls.Add(lblFirstNameAccount);
             pnlAccountPage.Controls.Add(label1);
-            pnlAccountPage.Location = new Point(47, 213);
+            pnlAccountPage.Location = new Point(47, 208);
             pnlAccountPage.Name = "pnlAccountPage";
             pnlAccountPage.Size = new Size(1222, 484);
             pnlAccountPage.TabIndex = 15;
@@ -603,21 +589,11 @@
             lbl2AddressAccount.TabIndex = 10;
             lbl2AddressAccount.Text = "Address";
             // 
-            // lbl2UsernameAccount
-            // 
-            lbl2UsernameAccount.AutoSize = true;
-            lbl2UsernameAccount.ForeColor = Color.Black;
-            lbl2UsernameAccount.Location = new Point(435, 274);
-            lbl2UsernameAccount.Name = "lbl2UsernameAccount";
-            lbl2UsernameAccount.Size = new Size(60, 15);
-            lbl2UsernameAccount.TabIndex = 9;
-            lbl2UsernameAccount.Text = "Username";
-            // 
             // lbl2LastNameAccount
             // 
             lbl2LastNameAccount.AutoSize = true;
             lbl2LastNameAccount.ForeColor = Color.Black;
-            lbl2LastNameAccount.Location = new Point(435, 207);
+            lbl2LastNameAccount.Location = new Point(435, 237);
             lbl2LastNameAccount.Name = "lbl2LastNameAccount";
             lbl2LastNameAccount.Size = new Size(58, 15);
             lbl2LastNameAccount.TabIndex = 8;
@@ -627,21 +603,11 @@
             // 
             lbl2FirstNameAccount.AutoSize = true;
             lbl2FirstNameAccount.ForeColor = Color.Black;
-            lbl2FirstNameAccount.Location = new Point(436, 137);
+            lbl2FirstNameAccount.Location = new Point(436, 167);
             lbl2FirstNameAccount.Name = "lbl2FirstNameAccount";
             lbl2FirstNameAccount.Size = new Size(59, 15);
             lbl2FirstNameAccount.TabIndex = 7;
             lbl2FirstNameAccount.Text = "Firstname";
-            // 
-            // lblUsernameAccount
-            // 
-            lblUsernameAccount.AutoSize = true;
-            lblUsernameAccount.Location = new Point(406, 252);
-            lblUsernameAccount.Name = "lblUsernameAccount";
-            lblUsernameAccount.RightToLeft = RightToLeft.No;
-            lblUsernameAccount.Size = new Size(63, 15);
-            lblUsernameAccount.TabIndex = 6;
-            lblUsernameAccount.Text = "Username:";
             // 
             // lblAddressAccount
             // 
@@ -676,7 +642,7 @@
             // lblLastNameAccount
             // 
             lblLastNameAccount.AutoSize = true;
-            lblLastNameAccount.Location = new Point(406, 184);
+            lblLastNameAccount.Location = new Point(406, 214);
             lblLastNameAccount.Name = "lblLastNameAccount";
             lblLastNameAccount.RightToLeft = RightToLeft.No;
             lblLastNameAccount.Size = new Size(66, 15);
@@ -686,7 +652,7 @@
             // lblFirstNameAccount
             // 
             lblFirstNameAccount.AutoSize = true;
-            lblFirstNameAccount.Location = new Point(405, 114);
+            lblFirstNameAccount.Location = new Point(405, 144);
             lblFirstNameAccount.Name = "lblFirstNameAccount";
             lblFirstNameAccount.RightToLeft = RightToLeft.No;
             lblFirstNameAccount.Size = new Size(67, 15);
@@ -708,13 +674,12 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             ClientSize = new Size(1284, 701);
             Controls.Add(pnlAccountPage);
             Controls.Add(lblAppName);
-            Controls.Add(txtDebugText);
             Controls.Add(pnlBookStock);
             Controls.Add(panel3);
             Controls.Add(pnlBookSearch);
@@ -740,7 +705,6 @@
             pnlAccountPage.ResumeLayout(false);
             pnlAccountPage.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -782,11 +746,9 @@
         private Button btnBookSearchResetButton;
         private Button btnBookCardDetailedViewButton;
         private Button btnBookCardAddtoCartButton;
-        private TextBox txtDebugText;
         private Panel pnlAccountPage;
         private Label label1;
         private Label lblFirstNameAccount;
-        private Label lblUsernameAccount;
         private Label lblAddressAccount;
         private Label lblPhoneAccount;
         private Label lblEmailAccount;
@@ -798,7 +760,6 @@
         private Label lbl2EmailAccount;
         private Label lbl2PhoneAccount;
         private Label lbl2AddressAccount;
-        private Label lbl2UsernameAccount;
         private Button btnLogOutAccount;
     }
 }

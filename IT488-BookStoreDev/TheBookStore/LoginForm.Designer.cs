@@ -80,18 +80,19 @@
             // 
             // btnCreateAccount
             // 
-            btnCreateAccount.Location = new Point(88, 178);
+            btnCreateAccount.Location = new Point(7, 138);
             btnCreateAccount.Name = "btnCreateAccount";
             btnCreateAccount.Size = new Size(112, 23);
             btnCreateAccount.TabIndex = 5;
             btnCreateAccount.Text = "Create Account";
             btnCreateAccount.UseVisualStyleBackColor = true;
+            btnCreateAccount.Click += btnCreateAccount_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(216, 221);
+            ClientSize = new Size(216, 183);
             Controls.Add(btnCreateAccount);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
