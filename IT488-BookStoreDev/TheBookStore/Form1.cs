@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using TheBookStore;
 
 namespace bookstoreapp
@@ -222,7 +223,7 @@ namespace bookstoreapp
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("Successful Login");
-                    
+
                     //Sets the logged in username
                     loggedInUsername = loginForm.LoggedInUsername;
 
@@ -257,7 +258,7 @@ namespace bookstoreapp
             {
                 return null;
             }
-            
+
             var datasource = @"(local)\SQLExpress";
             var database = "Bookstoredb";
             string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
@@ -329,7 +330,7 @@ namespace bookstoreapp
                 }
             }
         }
-        
+
         //Update Password Method
         private void UpdateUserPassword(string username, string newPassword)
         {
@@ -358,6 +359,194 @@ namespace bookstoreapp
                     MessageBox.Show("Password update failed.");
                 }
             }
+        }
+
+        private void btnEditInfoAccount_Click(object sender, EventArgs e)
+        {
+            //Convert labels to textboxes and populate with current info
+            txtFirstNameAccount.Text = lbl2FirstNameAccount.Text;
+            txtLastNameAccount.Text = lbl2LastNameAccount.Text;
+            txtEmailAccount.Text = lbl2EmailAccount.Text;
+            txtPhoneNumberAccount.Text = lbl2PhoneAccount.Text;
+            txtAddressAccount.Text = lbl2AddressAccount.Text;
+
+            //Make Save and Cancel button visible
+            btnSaveChangesAccount.Visible = true;
+            btnCancelAccount.Visible = true;
+
+            //Make Edit Info, Log out, and change password button invisible
+            btnEditInfoAccount.Visible = false;
+            btnLogOutAccount.Visible = false;
+            btnChangePasswordAccount.Visible = false;
+
+            //Hide labels
+            lbl2FirstNameAccount.Visible = false;
+            lbl2LastNameAccount.Visible = false;
+            lbl2EmailAccount.Visible = false;
+            lbl2PhoneAccount.Visible = false;
+            lbl2AddressAccount.Visible = false;
+
+            //Make textboxes visible
+            txtFirstNameAccount.Visible = true;
+            txtLastNameAccount.Visible = true;
+            txtEmailAccount.Visible = true;
+            txtPhoneNumberAccount.Visible = true;
+            txtAddressAccount.Visible = true;
+        }
+
+        private void btnSaveChangesAccount_Click(object sender, EventArgs e)
+        {
+            //FirstName Validation
+            if (string.IsNullOrWhiteSpace(txtFirstNameAccount.Text) ||
+                !char.IsUpper(txtFirstNameAccount.Text[0]) ||
+                txtFirstNameAccount.Text.Length < 3 ||
+                txtFirstNameAccount.Text.Length > 20)
+            {
+                MessageBox.Show("First name must start with a capital letter, minimum of 3 letters, maximum of 20 letters.");
+                return;
+            }
+
+            //LastName Validation
+            if (string.IsNullOrWhiteSpace(txtLastNameAccount.Text) ||
+                !char.IsUpper(txtLastNameAccount.Text[0]) ||
+                txtLastNameAccount.Text.Length < 2 ||
+                txtLastNameAccount.Text.Length > 25)
+            {
+                MessageBox.Show("Last name must start with capital letter, minimum of 2 letters, maximum of 25 letters.");
+                return;
+            }
+
+            //Email Validation
+            if (string.IsNullOrWhiteSpace(txtEmailAccount.Text) ||
+                !txtEmailAccount.Text.Contains("@") ||
+                !txtEmailAccount.Text.EndsWith(".com") && 
+                !txtEmailAccount.Text.EndsWith(".net") && 
+                !txtEmailAccount.Text.EndsWith(".org"))
+            {
+                MessageBox.Show("Email must contain an '@' symbol followed by a web domain.");
+                return;
+            }
+
+            //PhoneNumber Validation
+            /*****************************************
+                ^ = string start
+                \( and \) = parentheses presence
+                \d{3} = first three digits
+                \d{3} = second 3 digits
+                - = hyphen presence
+                \d{4} = last 4 digits
+                $ = string end
+            ***************************************/
+            string phoneNumberPattern = @"^\(\d{3}\)\d{3}-\d{4}$";
+            if (txtPhoneNumberAccount.Text.Length < 10 ||
+                !Regex.IsMatch(txtPhoneNumberAccount.Text, phoneNumberPattern))
+            {
+                MessageBox.Show("Phone number must have a minimum of 10 numbers.");
+                return;
+            }
+
+            //Execute UpdateUserInfo method
+            UpdateUserInfo(loggedInUsername,
+                            txtFirstNameAccount.Text,
+                            txtLastNameAccount.Text,
+                            txtEmailAccount.Text,
+                            txtPhoneNumberAccount.Text,
+                            txtAddressAccount.Text);
+        }
+
+        //UpdateUserInfo Method
+        private void UpdateUserInfo(string username, string firstName, string lastName, string email, string phoneNumber, string address)
+        {
+            var datasource = @"(local)\SQLExpress";
+            var database = "Bookstoredb";
+            string connString = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                string sqlQuery = "UPDATE [Users] SET FirstName = @FirstName, LastName = @LastName, Email = @Email, PhoneNumber = @PhoneNumber, Address = @Address WHERE [FirstName] = @Username";
+                SqlCommand command = new SqlCommand(sqlQuery, conn);
+
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@Email", email);
+                command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                command.Parameters.AddWithValue("@Address", address);
+                command.Parameters.AddWithValue("@Username", username);
+
+                command.ExecuteNonQuery();
+            }
+
+            //Update labels
+            lbl2FirstNameAccount.Text = firstName;
+            lbl2LastNameAccount.Text = lastName;
+            lbl2EmailAccount.Text = email;
+            lbl2PhoneAccount.Text = phoneNumber;
+            lbl2AddressAccount.Text = address;
+
+            //Switch textboxes back to labels
+            lbl2FirstNameAccount.Text = txtFirstNameAccount.Text;
+            lbl2LastNameAccount.Text = txtLastNameAccount.Text;
+            lbl2EmailAccount.Text = txtEmailAccount.Text;
+            lbl2PhoneAccount.Text = txtPhoneNumberAccount.Text;
+            lbl2AddressAccount.Text = txtAddressAccount.Text;
+
+            //Make Save and Cancel button invisible
+            btnSaveChangesAccount.Visible = false;
+            btnCancelAccount.Visible = false;
+
+            //Make Edit Info, Log out, and change password button visible
+            btnEditInfoAccount.Visible = true;
+            btnLogOutAccount.Visible = true;
+            btnChangePasswordAccount.Visible = true;
+
+            //Make labels visible
+            lbl2FirstNameAccount.Visible = true;
+            lbl2LastNameAccount.Visible = true;
+            lbl2EmailAccount.Visible = true;
+            lbl2PhoneAccount.Visible = true;
+            lbl2AddressAccount.Visible = true;
+
+            //Make textboxes invisible
+            txtFirstNameAccount.Visible = false;
+            txtLastNameAccount.Visible = false;
+            txtEmailAccount.Visible = false;
+            txtPhoneNumberAccount.Visible = false;
+            txtAddressAccount.Visible = false;
+        }
+
+        //Cancel the Edit Info View
+        private void btnCancelAccount_Click(object sender, EventArgs e)
+        {
+            //Revert textboxes back to labels without saving
+            lbl2FirstNameAccount.Text = txtFirstNameAccount.Text;
+            lbl2LastNameAccount.Text = txtLastNameAccount.Text;
+            lbl2EmailAccount.Text = txtEmailAccount.Text;
+            lbl2PhoneAccount.Text = txtPhoneNumberAccount.Text;
+            lbl2AddressAccount.Text = txtAddressAccount.Text;
+
+            //Make Save and Cancel button invisible
+            btnSaveChangesAccount.Visible = false;
+            btnCancelAccount.Visible = false;
+
+            //Make Edit Info, Log out, and Change Password button visible
+            btnEditInfoAccount.Visible = true;
+            btnLogOutAccount.Visible = true;
+            btnChangePasswordAccount.Visible = true;
+
+            //Make labels visible
+            lbl2FirstNameAccount.Visible = true;
+            lbl2LastNameAccount.Visible = true;
+            lbl2EmailAccount.Visible = true;
+            lbl2PhoneAccount.Visible = true;
+            lbl2AddressAccount.Visible = true;
+
+            //Make textboxes invisible
+            txtFirstNameAccount.Visible = false;
+            txtLastNameAccount.Visible = false;
+            txtEmailAccount.Visible = false;
+            txtPhoneNumberAccount.Visible = false;
+            txtAddressAccount.Visible = false;
         }
     }
 }

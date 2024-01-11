@@ -38,17 +38,19 @@ namespace TheBookStore
             //LastName Validation
             if (string.IsNullOrWhiteSpace(txtLastName.Text) ||
                 !char.IsUpper(txtLastName.Text[0]) ||
-                txtLastName.Text.Length < 5 ||
+                txtLastName.Text.Length < 2 ||
                 txtLastName.Text.Length > 25)
             {
-                MessageBox.Show("Last name must start with capital leeter, minimum of 5 letters, maximum of 25 letters.");
+                MessageBox.Show("Last name must start with capital letter, minimum of 2 letters, maximum of 25 letters.");
                 return;
             }
 
             //Email Validation
             if (string.IsNullOrWhiteSpace(txtEmail.Text) ||
                 !txtEmail.Text.Contains("@") ||
-                !txtEmail.Text.EndsWith(".com") && !txtEmail.Text.EndsWith(".net") && !txtEmail.Text.EndsWith(".org"))
+                !txtEmail.Text.EndsWith(".com") && 
+                !txtEmail.Text.EndsWith(".net") && 
+                !txtEmail.Text.EndsWith(".org"))
             {
                 MessageBox.Show("Email must contain an '@' symbol followed by a web domain.");
                 return;
