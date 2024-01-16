@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Text.RegularExpressions;
 using TheBookStore;
 
@@ -49,6 +50,8 @@ namespace bookstoreapp
 
             for (int i = 0; i < books.Count; i++)
             {
+                Book currentBook = books[i];
+
                 Panel newPanel = new Panel
                 {
                     Size = pnlBookCard.Size,
@@ -65,6 +68,12 @@ namespace bookstoreapp
                     newControl.Font = control.Font;
                     newControl.ForeColor = control.ForeColor;
                     newControl.BackColor = control.BackColor;
+
+                    if (control is Button && control.Name == "btnBookCardAddtoCart")
+                    {
+                        Button addToCartButton = (Button)newControl;
+                        addToCartButton.Click += (sender, e) => AddBookToCart(currentBook);
+                    }
 
                     if (control is System.Windows.Forms.Label)
                     {
@@ -194,9 +203,22 @@ namespace bookstoreapp
         {
             ShowLoginForm();
 
-            pnlBookStock.Visible = false;
-            pnlBookSearch.Visible = false;
-            pnlAccountPage.Visible = true;
+            if (isLoggedIn)
+            {
+                //User successfully logs in
+                pnlBookStock.Visible = false;
+                pnlBookSearch.Visible = false;
+                pnlAccountPage.Visible = true;
+                pnlCartPage.Visible = false;
+            }
+            else
+            {
+                //User fails to log in
+                pnlBookStock.Visible = true;
+                pnlBookSearch.Visible = true;
+                pnlAccountPage.Visible = false;
+                pnlCartPage.Visible = false;
+            }
         }
 
         private void btnHomePage_Click(object sender, EventArgs e)
@@ -204,6 +226,7 @@ namespace bookstoreapp
             pnlBookStock.Visible = true;
             pnlBookSearch.Visible = true;
             pnlAccountPage.Visible = false;
+            pnlCartPage.Visible = false;
         }
 
         private void btnLoginPage_Click(object sender, EventArgs e)
@@ -419,8 +442,8 @@ namespace bookstoreapp
             //Email Validation
             if (string.IsNullOrWhiteSpace(txtEmailAccount.Text) ||
                 !txtEmailAccount.Text.Contains("@") ||
-                !txtEmailAccount.Text.EndsWith(".com") && 
-                !txtEmailAccount.Text.EndsWith(".net") && 
+                !txtEmailAccount.Text.EndsWith(".com") &&
+                !txtEmailAccount.Text.EndsWith(".net") &&
                 !txtEmailAccount.Text.EndsWith(".org"))
             {
                 MessageBox.Show("Email must contain an '@' symbol followed by a web domain.");
@@ -547,6 +570,287 @@ namespace bookstoreapp
             txtEmailAccount.Visible = false;
             txtPhoneNumberAccount.Visible = false;
             txtAddressAccount.Visible = false;
+        }
+
+        private List<Tuple<Book, int>> cartBooks = new List<Tuple<Book, int>>();
+
+        private void AddBookToCart(Book book)
+        {
+            var existingEntry = cartBooks.FirstOrDefault(t => t.Item1 == book);
+            if (existingEntry != null)
+            {
+                //Quantity increases when book already exists in cart
+                int newQuantity = existingEntry.Item2 + 1;
+                cartBooks[cartBooks.IndexOf(existingEntry)] = new Tuple<Book, int>(book, newQuantity);
+            }
+            else
+            {
+                //New book entered
+                cartBooks.Add(new Tuple<Book, int>(book, 1));
+            }
+            RefreshCartDisplay();
+            MessageBox.Show("Book added to cart.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CalculateCartTotal();
+        }
+
+        private void btnCartPage_Click(object sender, EventArgs e)
+        {
+            //Hide pnlBookSearch, pnlBookStock, pnlAccountPage
+            pnlBookSearch.Visible = false;
+            pnlBookStock.Visible = false;
+            pnlAccountPage.Visible = false;
+
+            //Show pnlCartPage
+            pnlCartPage.Visible = true;
+
+            //Refresh cart display
+            RefreshCartDisplay();
+        }
+
+        private Panel CreateCartItemPanel(Book book, int quantity, int index)
+        {
+            int panelHeight = pnlCartItem.Height;
+            int spacing = 5;
+            int yPosition = index * (panelHeight + spacing);
+
+            Panel cartItemPanel = new Panel
+            {
+                Size = pnlCartItem.Size,
+                Location = new Point(0, yPosition)
+            };
+
+            foreach (Control control in pnlCartItem.Controls)
+            {
+                if (control is Label)
+                {
+                    Label clonedLabel = CloneLabel(control as Label);
+
+                    if (control.Name == "lblTitleCartItem")
+                        clonedLabel.Text = book.Title;
+                    else if (control.Name == "lblAuthorCartItem")
+                        clonedLabel.Text = book.Author;
+                    else if (control.Name == "lblPriceCartItem")
+                        clonedLabel.Text = book.Price;
+                    else if (control.Name == "lblDescriptionCartItem")
+                        clonedLabel.Text = book.Description;
+                    else if (control.Name == "lblCartItemQuantity")
+                        clonedLabel.Text = $"{quantity}";
+
+                    cartItemPanel.Controls.Add(clonedLabel);
+                }
+                else if (control is Button)
+                {
+                    Button clonedButton = CloneButton(control as Button);
+                    if (control.Name == "btnCartItemRemove")
+                    {
+                        clonedButton.Tag = new Tuple<Book, int>(book, quantity);
+                        clonedButton.Click += btnCartItemRemove_Click;
+                    }
+                    cartItemPanel.Controls.Add(clonedButton);
+                }
+            }
+            return cartItemPanel;
+        }
+
+        //CloneLabel attributes for CreateCartItemPanel
+        private Label CloneLabel(Label original)
+        {
+            return new Label
+            {
+                AutoSize = original.AutoSize,
+                ForeColor = original.ForeColor,
+                BackColor = original.BackColor,
+                Font = new Font(original.Font.FontFamily, original.Font.Size),
+                Location = original.Location,
+                Size = original.Size,
+                TextAlign = original.TextAlign,
+                Text = original.Text
+            };
+        }
+
+        //CloneButton attributes for CreateCartItemPanel
+        private Button CloneButton(Button original)
+        {
+            return new Button
+            {
+                Text = original.Text,
+                Location = original.Location,
+                Size = original.Size,
+                BackColor = original.BackColor,
+                ForeColor = original.ForeColor,
+                Font = new Font(original.Font.FontFamily, original.Font.Size)
+            };
+        }
+
+        private void btnCartItemRemove_Click(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.Tag is Tuple<Book, int> entry)
+            {
+                if (entry.Item2 > 1)
+                {
+                    //Decrease quantity
+                    int newQuantity = entry.Item2 - 1;
+                    cartBooks[cartBooks.IndexOf(entry)] = new Tuple<Book, int>(entry.Item1, newQuantity);
+                }
+                else
+                {
+                    //Remove from cart
+                    cartBooks.Remove(entry);
+                }
+                RefreshCartDisplay();
+                MessageBox.Show("Book successfully removed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CalculateCartTotal();
+            }
+        }
+
+        private void RefreshCartDisplay()
+        {
+            pnlCart.Controls.Clear();
+
+            for (int i = 0; i < cartBooks.Count; i++)
+            {
+                var cartItem = cartBooks[i];
+                Panel cartItemPanel = CreateCartItemPanel(cartItem.Item1, cartItem.Item2, i);
+                pnlCart.Controls.Add(cartItemPanel);
+            }
+            CalculateCartTotal();
+        }
+
+        private decimal CalculateCartTotal()
+        {
+            decimal total = 0;
+            foreach (var entry in cartBooks)
+            {
+                if (decimal.TryParse(entry.Item1.Price, out decimal bookPrice))
+                {
+                    total += bookPrice * entry.Item2;
+                }
+            }
+            lblCartTotal.Text = $"${total:F2}";
+            return total;
+        }
+
+        private void btnEmptyCart_Click(object sender, EventArgs e)
+        {
+            //Cart is already empty check
+            if (cartBooks.Count == 0)
+            {
+                MessageBox.Show("Your cart has already been emptied.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+            //Clear cart
+            cartBooks.Clear();
+
+            //Refresh cart panel
+            RefreshCartDisplay();
+
+            //Update total
+            CalculateCartTotal();
+
+            //Acknowledgement
+            MessageBox.Show("Cart has been emptied.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnCheckoutCart_Click(object sender, EventArgs e)
+        {
+            //Check if cart is empty
+            if (cartBooks.Count == 0)
+            {
+                MessageBox.Show("Your cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; //Early return
+            }
+            
+            if (isLoggedIn)
+            {
+                //Show labels with user info
+                User currentUser = GetUserDetails(loggedInUsername);
+                lblFirstNameCheckout.Text = currentUser.FirstName;
+                lblLastNameCheckout.Text = currentUser.LastName;
+                lblAddressCheckout.Text = currentUser.Address;
+                lblPhoneNumberCheckout.Text = currentUser.PhoneNumber;
+
+                //Hide textboxes
+                txtFirstNameCheckout.Visible = false;
+                txtLastNameCheckout.Visible = false;
+                txtAddressCheckout.Visible = false;
+                txtPhoneNumberCheckout.Visible = false;
+
+                //Show labels
+                lblFirstNameCheckout.Visible = true;
+                lblLastNameCheckout.Visible = true;
+                lblAddressCheckout.Visible = true;
+                lblPhoneNumberCheckout.Visible = true;
+
+                //Hide Login Button
+                btnLoginCheckout.Visible = false;
+            }
+            else
+            {
+                //Show textboxes for users to fill
+                txtFirstNameCheckout.Visible = true;
+                txtLastNameCheckout.Visible = true;
+                txtAddressCheckout.Visible = true;
+                txtPhoneNumberCheckout.Visible = true;
+
+                //Hide labels
+                lblFirstNameCheckout.Visible = false;
+                lblLastNameCheckout.Visible = false;
+                lblAddressCheckout.Visible = false;
+                lblPhoneNumberCheckout.Visible = false;
+            }
+
+            //Update quantity and total
+            lblQuantityCheckout.Text = cartBooks.Sum(item => item.Item2).ToString();
+            lblTotalCheckout.Text = CalculateCartTotal().ToString("C2");
+
+            //Hide current panels and show pnlCheckoutPage
+            pnlCartPage.Visible = false;
+            pnlCheckoutPage.Visible = true;
+        }
+
+        private void btnCancelCheckout_Click(object sender, EventArgs e)
+        {
+            pnlCheckoutPage.Visible = false;
+            pnlCartPage.Visible = true;
+        }
+
+        private void btnLoginCheckout_Click(object sender, EventArgs e)
+        {
+            ShowLoginForm();
+            if (isLoggedIn)
+            {
+                btnCheckoutCart_Click(sender, e);
+            }
+        }
+
+        private void btnConfirmCheckout_Click(object sender, EventArgs e)
+        {
+            string firstName;
+            if (isLoggedIn)
+            {
+                //Use the text from the label of logged in user
+                firstName = lblFirstNameCheckout.Text;
+            }
+            else
+            {
+                //Use the text from the entered first name field
+                firstName = txtFirstNameCheckout.Text;
+            }
+
+            MessageBox.Show($"Thank you for shopping with us, {firstName}!");
+
+            //Clear Textboxes
+            txtFirstNameCheckout.Text = "";
+            txtLastNameCheckout.Text = "";
+            txtAddressCheckout.Text = "";
+            txtPhoneNumberCheckout.Text = "";
+            
+            //Clear cart and go back to home page
+            cartBooks.Clear();
+            pnlCheckoutPage.Visible = false;
+            pnlBookSearch.Visible = true;
+            pnlBookStock.Visible = true;
         }
     }
 }

@@ -50,8 +50,7 @@
             panel3 = new Panel();
             pnlBookStock = new Panel();
             pnlBookCard = new Panel();
-            btnBookCardDetailedViewButton = new Button();
-            btnBookCardAddtoCartButton = new Button();
+            btnBookCardAddtoCart = new Button();
             lblBookCardDivider = new Label();
             lbl2BookCardSynopsis = new Label();
             lbl2BookCardPrice = new Label();
@@ -85,11 +84,56 @@
             lblLastNameAccount = new Label();
             lblFirstNameAccount = new Label();
             label1 = new Label();
+            pnlCartPage = new Panel();
+            btnEmptyCart = new Button();
+            label8 = new Label();
+            lblCartTotal = new Label();
+            label7 = new Label();
+            btnCheckoutCart = new Button();
+            pnlCart = new Panel();
+            pnlCartItem = new Panel();
+            lblCartItemQuantity = new Label();
+            label2 = new Label();
+            lblCartItemDivider = new Label();
+            btnCartItemRemove = new Button();
+            lbl2BookDescription = new Label();
+            lblDescriptionCartItem = new Label();
+            lblPriceCartItem = new Label();
+            lblAuthorCartItem = new Label();
+            lblTitleCartItem = new Label();
+            lbl2CartPrice = new Label();
+            lbl2CartAuthor = new Label();
+            lbl2CartTitle = new Label();
+            pnlCheckoutPage = new Panel();
+            lblTotalCheckout = new Label();
+            label11 = new Label();
+            txtPhoneNumberCheckout = new TextBox();
+            txtAddressCheckout = new TextBox();
+            txtLastNameCheckout = new TextBox();
+            txtFirstNameCheckout = new TextBox();
+            btnLoginCheckout = new Button();
+            btnCancelCheckout = new Button();
+            btnConfirmCheckout = new Button();
+            lblQuantityCheckout = new Label();
+            label15 = new Label();
+            lblPhoneNumberCheckout = new Label();
+            lblAddressCheckout = new Label();
+            lblLastNameCheckout = new Label();
+            lblFirstNameCheckout = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
             pnlNavBar.SuspendLayout();
             pnlBookSearch.SuspendLayout();
             pnlBookStock.SuspendLayout();
             pnlBookCard.SuspendLayout();
             pnlAccountPage.SuspendLayout();
+            pnlCartPage.SuspendLayout();
+            pnlCart.SuspendLayout();
+            pnlCartItem.SuspendLayout();
+            pnlCheckoutPage.SuspendLayout();
             SuspendLayout();
             // 
             // button2
@@ -158,6 +202,7 @@
             btnCartPage.TabIndex = 8;
             btnCartPage.Text = "Cart";
             btnCartPage.UseVisualStyleBackColor = false;
+            btnCartPage.Click += btnCartPage_Click;
             // 
             // pnlNavBar
             // 
@@ -339,8 +384,7 @@
             // 
             pnlBookCard.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlBookCard.BorderStyle = BorderStyle.FixedSingle;
-            pnlBookCard.Controls.Add(btnBookCardDetailedViewButton);
-            pnlBookCard.Controls.Add(btnBookCardAddtoCartButton);
+            pnlBookCard.Controls.Add(btnBookCardAddtoCart);
             pnlBookCard.Controls.Add(lblBookCardDivider);
             pnlBookCard.Controls.Add(lbl2BookCardSynopsis);
             pnlBookCard.Controls.Add(lbl2BookCardPrice);
@@ -358,24 +402,14 @@
             pnlBookCard.TabIndex = 0;
             pnlBookCard.Visible = false;
             // 
-            // btnBookCardDetailedViewButton
+            // btnBookCardAddtoCart
             // 
-            btnBookCardDetailedViewButton.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            btnBookCardDetailedViewButton.Location = new Point(688, 27);
-            btnBookCardDetailedViewButton.Name = "btnBookCardDetailedViewButton";
-            btnBookCardDetailedViewButton.Size = new Size(24, 23);
-            btnBookCardDetailedViewButton.TabIndex = 19;
-            btnBookCardDetailedViewButton.Text = "i";
-            btnBookCardDetailedViewButton.UseVisualStyleBackColor = true;
-            // 
-            // btnBookCardAddtoCartButton
-            // 
-            btnBookCardAddtoCartButton.Location = new Point(430, 172);
-            btnBookCardAddtoCartButton.Name = "btnBookCardAddtoCartButton";
-            btnBookCardAddtoCartButton.Size = new Size(94, 23);
-            btnBookCardAddtoCartButton.TabIndex = 18;
-            btnBookCardAddtoCartButton.Text = "Add to Cart";
-            btnBookCardAddtoCartButton.UseVisualStyleBackColor = true;
+            btnBookCardAddtoCart.Location = new Point(430, 172);
+            btnBookCardAddtoCart.Name = "btnBookCardAddtoCart";
+            btnBookCardAddtoCart.Size = new Size(94, 23);
+            btnBookCardAddtoCart.TabIndex = 18;
+            btnBookCardAddtoCart.Text = "Add to Cart";
+            btnBookCardAddtoCart.UseVisualStyleBackColor = true;
             // 
             // lblBookCardDivider
             // 
@@ -524,7 +558,7 @@
             pnlAccountPage.Controls.Add(lblLastNameAccount);
             pnlAccountPage.Controls.Add(lblFirstNameAccount);
             pnlAccountPage.Controls.Add(label1);
-            pnlAccountPage.Location = new Point(47, 208);
+            pnlAccountPage.Location = new Point(47, 213);
             pnlAccountPage.Name = "pnlAccountPage";
             pnlAccountPage.Size = new Size(1222, 484);
             pnlAccountPage.TabIndex = 15;
@@ -743,12 +777,486 @@
             label1.Text = "Account";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // pnlCartPage
+            // 
+            pnlCartPage.Controls.Add(btnEmptyCart);
+            pnlCartPage.Controls.Add(label8);
+            pnlCartPage.Controls.Add(lblCartTotal);
+            pnlCartPage.Controls.Add(label7);
+            pnlCartPage.Controls.Add(btnCheckoutCart);
+            pnlCartPage.Controls.Add(pnlCart);
+            pnlCartPage.Location = new Point(46, 213);
+            pnlCartPage.Name = "pnlCartPage";
+            pnlCartPage.Size = new Size(1219, 504);
+            pnlCartPage.TabIndex = 23;
+            pnlCartPage.Visible = false;
+            // 
+            // btnEmptyCart
+            // 
+            btnEmptyCart.BackColor = Color.Red;
+            btnEmptyCart.ForeColor = SystemColors.Desktop;
+            btnEmptyCart.Location = new Point(1041, 177);
+            btnEmptyCart.Name = "btnEmptyCart";
+            btnEmptyCart.Size = new Size(75, 23);
+            btnEmptyCart.TabIndex = 5;
+            btnEmptyCart.Text = "Empty";
+            btnEmptyCart.UseVisualStyleBackColor = false;
+            btnEmptyCart.Click += btnEmptyCart_Click;
+            // 
+            // label8
+            // 
+            label8.BackColor = Color.Chocolate;
+            label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(3, 6);
+            label8.Name = "label8";
+            label8.Size = new Size(1212, 52);
+            label8.TabIndex = 4;
+            label8.Text = "Your Cart";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblCartTotal
+            // 
+            lblCartTotal.AutoSize = true;
+            lblCartTotal.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCartTotal.Location = new Point(1098, 102);
+            lblCartTotal.Name = "lblCartTotal";
+            lblCartTotal.RightToLeft = RightToLeft.No;
+            lblCartTotal.Size = new Size(67, 19);
+            lblCartTotal.TabIndex = 3;
+            lblCartTotal.Text = "PriceTotal";
+            lblCartTotal.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(1041, 68);
+            label7.Name = "label7";
+            label7.RightToLeft = RightToLeft.No;
+            label7.Size = new Size(81, 21);
+            label7.TabIndex = 2;
+            label7.Text = "Your Total:";
+            // 
+            // btnCheckoutCart
+            // 
+            btnCheckoutCart.Location = new Point(1041, 144);
+            btnCheckoutCart.Name = "btnCheckoutCart";
+            btnCheckoutCart.Size = new Size(75, 23);
+            btnCheckoutCart.TabIndex = 1;
+            btnCheckoutCart.Text = "Check Out";
+            btnCheckoutCart.UseVisualStyleBackColor = true;
+            btnCheckoutCart.Click += btnCheckoutCart_Click;
+            // 
+            // pnlCart
+            // 
+            pnlCart.AutoScroll = true;
+            pnlCart.Controls.Add(pnlCartItem);
+            pnlCart.Location = new Point(3, 65);
+            pnlCart.Name = "pnlCart";
+            pnlCart.Size = new Size(1032, 393);
+            pnlCart.TabIndex = 0;
+            // 
+            // pnlCartItem
+            // 
+            pnlCartItem.AutoSize = true;
+            pnlCartItem.Controls.Add(lblCartItemQuantity);
+            pnlCartItem.Controls.Add(label2);
+            pnlCartItem.Controls.Add(lblCartItemDivider);
+            pnlCartItem.Controls.Add(btnCartItemRemove);
+            pnlCartItem.Controls.Add(lbl2BookDescription);
+            pnlCartItem.Controls.Add(lblDescriptionCartItem);
+            pnlCartItem.Controls.Add(lblPriceCartItem);
+            pnlCartItem.Controls.Add(lblAuthorCartItem);
+            pnlCartItem.Controls.Add(lblTitleCartItem);
+            pnlCartItem.Controls.Add(lbl2CartPrice);
+            pnlCartItem.Controls.Add(lbl2CartAuthor);
+            pnlCartItem.Controls.Add(lbl2CartTitle);
+            pnlCartItem.Location = new Point(3, 3);
+            pnlCartItem.Name = "pnlCartItem";
+            pnlCartItem.Size = new Size(1026, 193);
+            pnlCartItem.TabIndex = 0;
+            // 
+            // lblCartItemQuantity
+            // 
+            lblCartItemQuantity.AutoSize = true;
+            lblCartItemQuantity.ForeColor = SystemColors.Desktop;
+            lblCartItemQuantity.Location = new Point(900, 112);
+            lblCartItemQuantity.Name = "lblCartItemQuantity";
+            lblCartItemQuantity.RightToLeft = RightToLeft.No;
+            lblCartItemQuantity.Size = new Size(53, 15);
+            lblCartItemQuantity.TabIndex = 11;
+            lblCartItemQuantity.Text = "Quantity";
+            lblCartItemQuantity.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Highlight;
+            label2.Location = new Point(841, 112);
+            label2.Name = "label2";
+            label2.RightToLeft = RightToLeft.Yes;
+            label2.Size = new Size(56, 15);
+            label2.TabIndex = 10;
+            label2.Text = ":Quantity";
+            // 
+            // lblCartItemDivider
+            // 
+            lblCartItemDivider.BackColor = Color.Chocolate;
+            lblCartItemDivider.ForeColor = Color.Chocolate;
+            lblCartItemDivider.Location = new Point(0, 174);
+            lblCartItemDivider.Name = "lblCartItemDivider";
+            lblCartItemDivider.Size = new Size(1023, 16);
+            lblCartItemDivider.TabIndex = 9;
+            lblCartItemDivider.Text = "label9";
+            // 
+            // btnCartItemRemove
+            // 
+            btnCartItemRemove.BackColor = Color.Red;
+            btnCartItemRemove.ForeColor = Color.Black;
+            btnCartItemRemove.Location = new Point(900, 147);
+            btnCartItemRemove.Name = "btnCartItemRemove";
+            btnCartItemRemove.Size = new Size(75, 23);
+            btnCartItemRemove.TabIndex = 8;
+            btnCartItemRemove.Text = "Remove";
+            btnCartItemRemove.UseVisualStyleBackColor = false;
+            btnCartItemRemove.Click += btnCartItemRemove_Click;
+            // 
+            // lbl2BookDescription
+            // 
+            lbl2BookDescription.BackColor = Color.Chocolate;
+            lbl2BookDescription.ForeColor = Color.Black;
+            lbl2BookDescription.Location = new Point(572, 6);
+            lbl2BookDescription.Name = "lbl2BookDescription";
+            lbl2BookDescription.RightToLeft = RightToLeft.No;
+            lbl2BookDescription.Size = new Size(165, 23);
+            lbl2BookDescription.TabIndex = 7;
+            lbl2BookDescription.Text = "Book Synopsis";
+            lbl2BookDescription.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblDescriptionCartItem
+            // 
+            lblDescriptionCartItem.ForeColor = SystemColors.Desktop;
+            lblDescriptionCartItem.Location = new Point(572, 35);
+            lblDescriptionCartItem.Name = "lblDescriptionCartItem";
+            lblDescriptionCartItem.Size = new Size(165, 119);
+            lblDescriptionCartItem.TabIndex = 6;
+            lblDescriptionCartItem.Text = "Description";
+            lblDescriptionCartItem.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblPriceCartItem
+            // 
+            lblPriceCartItem.AutoSize = true;
+            lblPriceCartItem.ForeColor = SystemColors.Desktop;
+            lblPriceCartItem.Location = new Point(268, 144);
+            lblPriceCartItem.Name = "lblPriceCartItem";
+            lblPriceCartItem.RightToLeft = RightToLeft.No;
+            lblPriceCartItem.Size = new Size(33, 15);
+            lblPriceCartItem.TabIndex = 5;
+            lblPriceCartItem.Text = "Price";
+            lblPriceCartItem.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblAuthorCartItem
+            // 
+            lblAuthorCartItem.AutoSize = true;
+            lblAuthorCartItem.ForeColor = SystemColors.Desktop;
+            lblAuthorCartItem.Location = new Point(268, 80);
+            lblAuthorCartItem.Name = "lblAuthorCartItem";
+            lblAuthorCartItem.RightToLeft = RightToLeft.No;
+            lblAuthorCartItem.Size = new Size(44, 15);
+            lblAuthorCartItem.TabIndex = 4;
+            lblAuthorCartItem.Text = "Author";
+            lblAuthorCartItem.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblTitleCartItem
+            // 
+            lblTitleCartItem.AutoSize = true;
+            lblTitleCartItem.ForeColor = SystemColors.Desktop;
+            lblTitleCartItem.Location = new Point(268, 23);
+            lblTitleCartItem.Name = "lblTitleCartItem";
+            lblTitleCartItem.RightToLeft = RightToLeft.No;
+            lblTitleCartItem.Size = new Size(29, 15);
+            lblTitleCartItem.TabIndex = 3;
+            lblTitleCartItem.Text = "Title";
+            lblTitleCartItem.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lbl2CartPrice
+            // 
+            lbl2CartPrice.AutoSize = true;
+            lbl2CartPrice.ForeColor = SystemColors.Highlight;
+            lbl2CartPrice.Location = new Point(250, 129);
+            lbl2CartPrice.Name = "lbl2CartPrice";
+            lbl2CartPrice.RightToLeft = RightToLeft.No;
+            lbl2CartPrice.Size = new Size(33, 15);
+            lbl2CartPrice.TabIndex = 2;
+            lbl2CartPrice.Text = "Price";
+            // 
+            // lbl2CartAuthor
+            // 
+            lbl2CartAuthor.AutoSize = true;
+            lbl2CartAuthor.ForeColor = SystemColors.Highlight;
+            lbl2CartAuthor.Location = new Point(250, 65);
+            lbl2CartAuthor.Name = "lbl2CartAuthor";
+            lbl2CartAuthor.RightToLeft = RightToLeft.No;
+            lbl2CartAuthor.Size = new Size(44, 15);
+            lbl2CartAuthor.TabIndex = 1;
+            lbl2CartAuthor.Text = "Author";
+            // 
+            // lbl2CartTitle
+            // 
+            lbl2CartTitle.AutoSize = true;
+            lbl2CartTitle.ForeColor = SystemColors.Highlight;
+            lbl2CartTitle.Location = new Point(250, 8);
+            lbl2CartTitle.Name = "lbl2CartTitle";
+            lbl2CartTitle.RightToLeft = RightToLeft.No;
+            lbl2CartTitle.Size = new Size(29, 15);
+            lbl2CartTitle.TabIndex = 0;
+            lbl2CartTitle.Text = "Title";
+            // 
+            // pnlCheckoutPage
+            // 
+            pnlCheckoutPage.Controls.Add(lblTotalCheckout);
+            pnlCheckoutPage.Controls.Add(label11);
+            pnlCheckoutPage.Controls.Add(txtPhoneNumberCheckout);
+            pnlCheckoutPage.Controls.Add(txtAddressCheckout);
+            pnlCheckoutPage.Controls.Add(txtLastNameCheckout);
+            pnlCheckoutPage.Controls.Add(txtFirstNameCheckout);
+            pnlCheckoutPage.Controls.Add(btnLoginCheckout);
+            pnlCheckoutPage.Controls.Add(btnCancelCheckout);
+            pnlCheckoutPage.Controls.Add(btnConfirmCheckout);
+            pnlCheckoutPage.Controls.Add(lblQuantityCheckout);
+            pnlCheckoutPage.Controls.Add(label15);
+            pnlCheckoutPage.Controls.Add(lblPhoneNumberCheckout);
+            pnlCheckoutPage.Controls.Add(lblAddressCheckout);
+            pnlCheckoutPage.Controls.Add(lblLastNameCheckout);
+            pnlCheckoutPage.Controls.Add(lblFirstNameCheckout);
+            pnlCheckoutPage.Controls.Add(label10);
+            pnlCheckoutPage.Controls.Add(label9);
+            pnlCheckoutPage.Controls.Add(label6);
+            pnlCheckoutPage.Controls.Add(label5);
+            pnlCheckoutPage.Controls.Add(label4);
+            pnlCheckoutPage.Location = new Point(46, 210);
+            pnlCheckoutPage.Name = "pnlCheckoutPage";
+            pnlCheckoutPage.Size = new Size(1226, 484);
+            pnlCheckoutPage.TabIndex = 24;
+            pnlCheckoutPage.Visible = false;
+            // 
+            // lblTotalCheckout
+            // 
+            lblTotalCheckout.AutoSize = true;
+            lblTotalCheckout.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalCheckout.ForeColor = SystemColors.Desktop;
+            lblTotalCheckout.Location = new Point(734, 142);
+            lblTotalCheckout.Name = "lblTotalCheckout";
+            lblTotalCheckout.RightToLeft = RightToLeft.No;
+            lblTotalCheckout.Size = new Size(40, 19);
+            lblTotalCheckout.TabIndex = 19;
+            lblTotalCheckout.Text = "total";
+            lblTotalCheckout.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(697, 123);
+            label11.Name = "label11";
+            label11.RightToLeft = RightToLeft.No;
+            label11.Size = new Size(35, 15);
+            label11.TabIndex = 18;
+            label11.Text = "Total:";
+            label11.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // txtPhoneNumberCheckout
+            // 
+            txtPhoneNumberCheckout.Location = new Point(434, 348);
+            txtPhoneNumberCheckout.Name = "txtPhoneNumberCheckout";
+            txtPhoneNumberCheckout.RightToLeft = RightToLeft.No;
+            txtPhoneNumberCheckout.Size = new Size(100, 23);
+            txtPhoneNumberCheckout.TabIndex = 17;
+            // 
+            // txtAddressCheckout
+            // 
+            txtAddressCheckout.Location = new Point(434, 264);
+            txtAddressCheckout.Multiline = true;
+            txtAddressCheckout.Name = "txtAddressCheckout";
+            txtAddressCheckout.RightToLeft = RightToLeft.No;
+            txtAddressCheckout.Size = new Size(100, 47);
+            txtAddressCheckout.TabIndex = 16;
+            // 
+            // txtLastNameCheckout
+            // 
+            txtLastNameCheckout.Location = new Point(434, 183);
+            txtLastNameCheckout.Name = "txtLastNameCheckout";
+            txtLastNameCheckout.RightToLeft = RightToLeft.No;
+            txtLastNameCheckout.Size = new Size(100, 23);
+            txtLastNameCheckout.TabIndex = 15;
+            // 
+            // txtFirstNameCheckout
+            // 
+            txtFirstNameCheckout.Location = new Point(434, 99);
+            txtFirstNameCheckout.Name = "txtFirstNameCheckout";
+            txtFirstNameCheckout.RightToLeft = RightToLeft.No;
+            txtFirstNameCheckout.Size = new Size(100, 23);
+            txtFirstNameCheckout.TabIndex = 14;
+            // 
+            // btnLoginCheckout
+            // 
+            btnLoginCheckout.Location = new Point(558, 409);
+            btnLoginCheckout.Name = "btnLoginCheckout";
+            btnLoginCheckout.Size = new Size(75, 23);
+            btnLoginCheckout.TabIndex = 13;
+            btnLoginCheckout.Text = "Login";
+            btnLoginCheckout.UseVisualStyleBackColor = true;
+            btnLoginCheckout.Click += btnLoginCheckout_Click;
+            // 
+            // btnCancelCheckout
+            // 
+            btnCancelCheckout.Location = new Point(421, 409);
+            btnCancelCheckout.Name = "btnCancelCheckout";
+            btnCancelCheckout.Size = new Size(75, 23);
+            btnCancelCheckout.TabIndex = 12;
+            btnCancelCheckout.Text = "Cancel";
+            btnCancelCheckout.UseVisualStyleBackColor = true;
+            btnCancelCheckout.Click += btnCancelCheckout_Click;
+            // 
+            // btnConfirmCheckout
+            // 
+            btnConfirmCheckout.Location = new Point(695, 409);
+            btnConfirmCheckout.Name = "btnConfirmCheckout";
+            btnConfirmCheckout.Size = new Size(75, 23);
+            btnConfirmCheckout.TabIndex = 11;
+            btnConfirmCheckout.Text = "Confirm";
+            btnConfirmCheckout.UseVisualStyleBackColor = true;
+            btnConfirmCheckout.Click += btnConfirmCheckout_Click;
+            // 
+            // lblQuantityCheckout
+            // 
+            lblQuantityCheckout.AutoSize = true;
+            lblQuantityCheckout.ForeColor = Color.Black;
+            lblQuantityCheckout.Location = new Point(734, 83);
+            lblQuantityCheckout.Name = "lblQuantityCheckout";
+            lblQuantityCheckout.Size = new Size(51, 15);
+            lblQuantityCheckout.TabIndex = 10;
+            lblQuantityCheckout.Text = "quantity";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(676, 82);
+            label15.Name = "label15";
+            label15.RightToLeft = RightToLeft.No;
+            label15.Size = new Size(56, 15);
+            label15.TabIndex = 9;
+            label15.Text = "Quantity:";
+            // 
+            // lblPhoneNumberCheckout
+            // 
+            lblPhoneNumberCheckout.AutoSize = true;
+            lblPhoneNumberCheckout.ForeColor = Color.Black;
+            lblPhoneNumberCheckout.Location = new Point(438, 348);
+            lblPhoneNumberCheckout.Name = "lblPhoneNumberCheckout";
+            lblPhoneNumberCheckout.RightToLeft = RightToLeft.No;
+            lblPhoneNumberCheckout.Size = new Size(85, 15);
+            lblPhoneNumberCheckout.TabIndex = 8;
+            lblPhoneNumberCheckout.Text = "PhoneNumber";
+            lblPhoneNumberCheckout.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblAddressCheckout
+            // 
+            lblAddressCheckout.ForeColor = Color.Black;
+            lblAddressCheckout.Location = new Point(438, 269);
+            lblAddressCheckout.Name = "lblAddressCheckout";
+            lblAddressCheckout.RightToLeft = RightToLeft.No;
+            lblAddressCheckout.Size = new Size(100, 35);
+            lblAddressCheckout.TabIndex = 7;
+            lblAddressCheckout.Text = "Address";
+            // 
+            // lblLastNameCheckout
+            // 
+            lblLastNameCheckout.AutoSize = true;
+            lblLastNameCheckout.ForeColor = Color.Black;
+            lblLastNameCheckout.Location = new Point(434, 185);
+            lblLastNameCheckout.Name = "lblLastNameCheckout";
+            lblLastNameCheckout.RightToLeft = RightToLeft.No;
+            lblLastNameCheckout.Size = new Size(60, 15);
+            lblLastNameCheckout.TabIndex = 6;
+            lblLastNameCheckout.Text = "LastName";
+            lblLastNameCheckout.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblFirstNameCheckout
+            // 
+            lblFirstNameCheckout.AutoSize = true;
+            lblFirstNameCheckout.ForeColor = Color.Black;
+            lblFirstNameCheckout.Location = new Point(434, 102);
+            lblFirstNameCheckout.Name = "lblFirstNameCheckout";
+            lblFirstNameCheckout.RightToLeft = RightToLeft.No;
+            lblFirstNameCheckout.Size = new Size(61, 15);
+            lblFirstNameCheckout.TabIndex = 5;
+            lblFirstNameCheckout.Text = "FirstName";
+            lblFirstNameCheckout.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(338, 325);
+            label10.Name = "label10";
+            label10.RightToLeft = RightToLeft.No;
+            label10.Size = new Size(91, 15);
+            label10.TabIndex = 4;
+            label10.Text = "Phone Number:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(377, 247);
+            label9.Name = "label9";
+            label9.RightToLeft = RightToLeft.No;
+            label9.Size = new Size(52, 15);
+            label9.TabIndex = 3;
+            label9.Text = "Address:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(363, 165);
+            label6.Name = "label6";
+            label6.RightToLeft = RightToLeft.No;
+            label6.Size = new Size(66, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Last Name:";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(362, 82);
+            label5.Name = "label5";
+            label5.RightToLeft = RightToLeft.No;
+            label5.Size = new Size(67, 15);
+            label5.TabIndex = 1;
+            label5.Text = "First Name:";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.Chocolate;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(4, 3);
+            label4.Name = "label4";
+            label4.Size = new Size(1219, 52);
+            label4.TabIndex = 0;
+            label4.Text = "Check Out";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             ClientSize = new Size(1284, 701);
+            Controls.Add(pnlCheckoutPage);
+            Controls.Add(pnlCartPage);
             Controls.Add(pnlAccountPage);
             Controls.Add(lblAppName);
             Controls.Add(pnlBookStock);
@@ -774,6 +1282,14 @@
             pnlBookCard.PerformLayout();
             pnlAccountPage.ResumeLayout(false);
             pnlAccountPage.PerformLayout();
+            pnlCartPage.ResumeLayout(false);
+            pnlCartPage.PerformLayout();
+            pnlCart.ResumeLayout(false);
+            pnlCart.PerformLayout();
+            pnlCartItem.ResumeLayout(false);
+            pnlCartItem.PerformLayout();
+            pnlCheckoutPage.ResumeLayout(false);
+            pnlCheckoutPage.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -813,8 +1329,7 @@
         private Label lbl2BookCardPrice;
         private Label lblBookCardDivider;
         private Button btnBookSearchResetButton;
-        private Button btnBookCardDetailedViewButton;
-        private Button btnBookCardAddtoCartButton;
+        private Button btnBookCardAddtoCart;
         private Panel pnlAccountPage;
         private Label label1;
         private Label lblFirstNameAccount;
@@ -837,6 +1352,47 @@
         private TextBox txtFirstNameAccount;
         private Button btnSaveChangesAccount;
         private Button btnCancelAccount;
+        private Panel pnlCartPage;
+        private Panel pnlCart;
+        private Panel pnlCartItem;
+        private Label lbl2CartTitle;
+        private Label lblDescriptionCartItem;
+        private Label lblPriceCartItem;
+        private Label lblAuthorCartItem;
+        private Label lblTitleCartItem;
+        private Label lbl2CartPrice;
+        private Label lbl2CartAuthor;
+        private Button btnCheckoutCart;
+        private Button btnCartItemRemove;
+        private Label lbl2BookDescription;
+        private Label lblCartTotal;
+        private Label label7;
+        private Label label8;
+        private Label lblCartItemDivider;
+        private Label label2;
+        private Label lblCartItemQuantity;
+        private Button btnEmptyCart;
+        private Panel pnlCheckoutPage;
+        private Label label4;
+        private Label label6;
+        private Label label5;
+        private Label lblPhoneNumberCheckout;
+        private Label lblAddressCheckout;
+        private Label lblLastNameCheckout;
+        private Label lblFirstNameCheckout;
+        private Label label10;
+        private Label label9;
+        private Button btnLoginCheckout;
+        private Button btnCancelCheckout;
+        private Button btnConfirmCheckout;
+        private Label lblQuantityCheckout;
+        private Label label15;
+        private TextBox txtPhoneNumberCheckout;
+        private TextBox txtAddressCheckout;
+        private TextBox txtLastNameCheckout;
+        private TextBox txtFirstNameCheckout;
+        private Label label11;
+        private Label lblTotalCheckout;
     }
 }
 
